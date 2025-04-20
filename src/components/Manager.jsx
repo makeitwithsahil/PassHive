@@ -16,12 +16,12 @@ const Manager = () => {
     }, []);
 
     const showPassword = () => {
-        if (ref.current.src.includes('/Icons/hide.png')) {
-            ref.current.src = '/Icons/view.png';
+        if (ref.current.src.includes('/hide.png')) {
+            ref.current.src = '/view.png';
             passInput.current.type = "text";
         } else {
             passInput.current.type = "password";
-            ref.current.src = '/Icons/hide.png';
+            ref.current.src = '/hide.png';
         }
     };
 
@@ -154,7 +154,7 @@ const Manager = () => {
                                 name='password'
                             />
                             <span className='absolute top-1.5 right-3 sm:top-1.5 cursor-pointer sm:right-3' onClick={showPassword}>
-                                <img className='h-5' ref={ref} src='public/Icons/hide.png' alt='eye' />
+                                <img className='h-5' ref={ref} src='public/hide.png' alt='eye' />
                             </span>
                         </div>
                     </div>
@@ -199,7 +199,7 @@ const Manager = () => {
                                                 <img
                                                     onClick={() => copyText(item.site)}
                                                     className='mx-2 w-3.5 sm:w-5 inline cursor-pointer'
-                                                    src="public/Icons/copy.svg"
+                                                    src="public/copy.svg"
                                                     alt="copy"
                                                 />
                                             </td>
@@ -208,7 +208,7 @@ const Manager = () => {
                                                 <img
                                                     onClick={() => copyText(item.username)}
                                                     className='mx-2 w-3.5 sm:w-5 inline cursor-pointer'
-                                                    src="public/Icons/copy.svg"
+                                                    src="public/copy.svg"
                                                     alt="copy"
                                                 />
                                             </td>
@@ -218,13 +218,13 @@ const Manager = () => {
                                                 <img
                                                     onClick={() => copyText(item.password)}
                                                     className='mx-2 w-3.5 sm:w-5 inline cursor-pointer'
-                                                    src="public/Icons/copy.svg"
+                                                    src="public/copy.svg"
                                                     alt="copy"
                                                 />
                                             </td>
                                             <td className='py-1 sm:text-center pl-2.5 sm:pl-0 text-left  w-32'>
-                                                <span onClick={() => { editPassword(item.id) }}><img className='cursor-pointer w-3.5 sm:w-5 inline mx-4' src="public\Icons\edit.svg" alt="Edit button" /></span>
-                                                <span onClick={() => { deletePassword(item.id) }}><img className='cursor-pointer w-3.5 sm:w-5 inline' src="public\Icons\trash.svg" alt="Delete button" /></span>
+                                                <span onClick={() => { editPassword(item.id) }}><img className='cursor-pointer w-3.5 sm:w-5 inline mx-4' src="/edit.svg" alt="Edit button" /></span>
+                                                <span onClick={() => { deletePassword(item.id) }}><img className='cursor-pointer w-3.5 sm:w-5 inline' src="/trash.svg" alt="Delete button" /></span>
                                             </td>
                                         </tr>
                                     );
