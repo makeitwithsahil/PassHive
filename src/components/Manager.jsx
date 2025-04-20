@@ -1,6 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
+import hideIcon from '../assets/hide.png';
+import trashIcon from '../assets/trash.svg';
+import viewIcon from '../assets/view.png';
+import editIcon from '../assets/edit.svg';
+import copyIcon from '../assets/copy.svg';
+
 
 const Manager = () => {
     const ref = useRef();
@@ -16,14 +22,15 @@ const Manager = () => {
     }, []);
 
     const showPassword = () => {
-        if (ref.current.src.includes('/hide.png')) {
-            ref.current.src = '/view.png';
+        if (ref.current.src.includes(hideIcon)) {
+            ref.current.src = viewIcon;
             passInput.current.type = "text";
         } else {
             passInput.current.type = "password";
-            ref.current.src = '/hide.png';
+            ref.current.src = hideIcon;
         }
     };
+
 
     const savePassword = () => {
         if (!form.site || !form.username || !form.password) {
@@ -154,7 +161,7 @@ const Manager = () => {
                                 name='password'
                             />
                             <span className='absolute top-1.5 right-3 sm:top-1.5 cursor-pointer sm:right-3' onClick={showPassword}>
-                                <img className='h-5' ref={ref} src='public/hide.png' alt='eye' />
+                                <img className='h-5' ref={ref} src={hideIcon} alt='eye' />
                             </span>
                         </div>
                     </div>
@@ -199,7 +206,7 @@ const Manager = () => {
                                                 <img
                                                     onClick={() => copyText(item.site)}
                                                     className='mx-2 w-3.5 sm:w-5 inline cursor-pointer'
-                                                    src="public/copy.svg"
+                                                    src={copyIcon}
                                                     alt="copy"
                                                 />
                                             </td>
@@ -208,7 +215,7 @@ const Manager = () => {
                                                 <img
                                                     onClick={() => copyText(item.username)}
                                                     className='mx-2 w-3.5 sm:w-5 inline cursor-pointer'
-                                                    src="public/copy.svg"
+                                                    src={copyIcon}
                                                     alt="copy"
                                                 />
                                             </td>
@@ -218,13 +225,13 @@ const Manager = () => {
                                                 <img
                                                     onClick={() => copyText(item.password)}
                                                     className='mx-2 w-3.5 sm:w-5 inline cursor-pointer'
-                                                    src="public/copy.svg"
+                                                    src={copyIcon}
                                                     alt="copy"
                                                 />
                                             </td>
                                             <td className='py-1 sm:text-center pl-2.5 sm:pl-0 text-left  w-32'>
-                                                <span onClick={() => { editPassword(item.id) }}><img className='cursor-pointer w-3.5 sm:w-5 inline mx-4' src="/edit.svg" alt="Edit button" /></span>
-                                                <span onClick={() => { deletePassword(item.id) }}><img className='cursor-pointer w-3.5 sm:w-5 inline' src="/trash.svg" alt="Delete button" /></span>
+                                                <span onClick={() => { editPassword(item.id) }}><img className='cursor-pointer w-3.5 sm:w-5 inline mx-4' src={editIcon} alt="Edit button" /></span>
+                                                <span onClick={() => { deletePassword(item.id) }}><img className='cursor-pointer w-3.5 sm:w-5 inline' src={trashIcon} alt="Delete button" /></span>
                                             </td>
                                         </tr>
                                     );
