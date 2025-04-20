@@ -12,6 +12,9 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.0.17",
     "cors": "^2.8.5",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^16.5.0",
+    "framer-motion": "^12.7.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-toastify": "^11.0.5",
