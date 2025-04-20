@@ -1,6 +1,6 @@
 # PassHive - Your Secure Password Manager
 
-**PassHive** is a password manager app that helps you securely store and manage your passwords. With features like saving, editing, and deleting passwords, PassHive keeps your login information organized and easily accessible.
+**PassHive** is a password manager app that helps you securely store and manage your passwords. With features like saving, editing, and deleting passwords, PassHive keeps your login information organised and easily accessible.
 
 ## Features
 - **Save Password**: Add a password with the website/app name, username, and password.
