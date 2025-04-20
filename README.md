@@ -17,7 +17,7 @@ PassHive stores your passwords **locally on your browser**. This means that your
 
 > _**Note:** This app is designed for **personal use** and to help you manage passwords efficiently on your browser. For better security in the future, I will implement advanced features._ ✨
 
-##[Contact Me 🔥🤝](https://sahilmaurya.vercel.app)
+[Contact Me 🔥🤝](https://sahilmaurya.vercel.app)
 
 ## License
 
