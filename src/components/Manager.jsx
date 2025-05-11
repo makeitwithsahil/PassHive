@@ -13,6 +13,16 @@ const Manager = () => {
     const passInput = useRef();
     const [form, setForm] = useState({ site: "", username: "", password: "" });
     const [passwordArray, setPasswordArray] = useState([]);
+    const [visiblePasswords, setVisiblePasswords] = useState({});
+
+    const togglePasswordVisibility = (id) => {
+        setVisiblePasswords((prev) => ({
+            ...prev,
+            [id]: !prev[id],
+        }));
+    };
+
+
 
     useEffect(() => {
         let passwords = localStorage.getItem("passwords");
@@ -176,69 +186,83 @@ const Manager = () => {
                         Save
                     </button>
                 </div>
-                <div className="passwords">
-                    <h2 className='font-bold text-xl md:text-2xl py-4'>Your Passwords</h2>
-                    {passwordArray.length === 0 && <div className='md:text-[16px] text-[13px]'>No Passwords to show!</div>}
-                    {passwordArray.length !== 0 &&
-                        <table className="table-auto w-full rounded-md overflow-hidden">
-                            <thead className='bg-green-700 sm:text-[14px] md:text-[15px] text-[10px] text-white'>
-                                <tr>
-                                    <th className='py-2 px-1'>Website URL or app name</th>
-                                    <th className='py-2'>Username</th>
-                                    <th className='py-2'>Password</th>
-                                    <th className='py-2'>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody className='bg-green-50 sm:text-[14px] md:text-[15px] text-[11px]'>
-                                {passwordArray.map((item, index) => {
-                                    const isLink = isValidURL(item.site);
+                <div className="passwords mt-6">
+                    <h2 className="font-bold text-xl md:text-2xl mb-4 text-gray-800">Your Passwords</h2>
 
-                                    return (
-                                        <tr key={index}>
-                                            <td className='py-1 sm:text-center pl-2.5 sm:pl-0 text-left w-32 '>
-                                                {isLink ? (
-                                                    <a href={item.site} target='_blank' rel='noopener noreferrer'>
-                                                        {item.site}
-                                                    </a>
-                                                ) : (
-                                                    item.site
-                                                )}
-                                                <img
-                                                    onClick={() => copyText(item.site)}
-                                                    className='mx-2 w-3.5 sm:w-5 inline cursor-pointer'
-                                                    src={copyIcon}
-                                                    alt="copy"
-                                                />
-                                            </td>
-                                            <td className='py-1 sm:text-center pl-2.5 sm:pl-0 text-left  w-32'>
-                                                {item.username}
-                                                <img
-                                                    onClick={() => copyText(item.username)}
-                                                    className='mx-2 w-3.5 sm:w-5 inline cursor-pointer'
-                                                    src={copyIcon}
-                                                    alt="copy"
-                                                />
-                                            </td>
+                    {passwordArray.length === 0 && (
+                        <div className="text-sm md:text-base text-gray-600">No Passwords to show!</div>
+                    )}
 
-                                            <td className='py-1 sm:text-center pl-2.5 sm:pl-0 text-left w-32'>
-                                                {item.password}
-                                                <img
-                                                    onClick={() => copyText(item.password)}
-                                                    className='mx-2 w-3.5 sm:w-5 inline cursor-pointer'
-                                                    src={copyIcon}
-                                                    alt="copy"
-                                                />
-                                            </td>
-                                            <td className='py-1 sm:text-center pl-2.5 sm:pl-0 text-left  w-32'>
-                                                <span onClick={() => { editPassword(item.id) }}><img className='cursor-pointer w-3.5 sm:w-5 inline mx-4' src={editIcon} alt="Edit button" /></span>
-                                                <span onClick={() => { deletePassword(item.id) }}><img className='cursor-pointer w-3.5 sm:w-5 inline' src={trashIcon} alt="Delete button" /></span>
-                                            </td>
-                                        </tr>
-                                    );
-                                })}
-                            </tbody>
-                        </table>}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {passwordArray.map((item, index) => {
+                            const isLink = isValidURL(item.site);
+                            const isPasswordVisible = visiblePasswords[item.id] || false;
+
+                            return (
+                                <div key={item.id} className="bg-white shadow-md border border-gray-200 rounded-lg p-4 flex flex-col justify-between">
+                                    {/* Site and Actions */}
+                                    <div className="flex justify-between items-start mb-3">
+                                        <div className="text-sm font-medium text-gray-800 break-all">
+                                            {isLink ? (
+                                                <a href={item.site} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">
+                                                    {item.site}
+                                                </a>
+                                            ) : (
+                                                item.site
+                                            )}
+                                        </div>
+                                        <div className="flex items-center space-x-3">   
+                                            <img
+                                                onClick={() => editPassword(item.id)}
+                                                className="w-4 h-4 cursor-pointer opacity-70 hover:opacity-100"
+                                                src={editIcon}
+                                                alt="Edit"
+                                            />
+                                            <img
+                                                onClick={() => deletePassword(item.id)}
+                                                className="w-4 h-4 cursor-pointer opacity-70 hover:opacity-100"
+                                                src={trashIcon}
+                                                alt="Delete"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* Username */}
+                                    <div className="text-sm text-gray-700 mb-2 flex items-center break-all">
+                                        <span className="font-semibold mr-1">Username:</span>
+                                        <span>{item.username}</span>
+                                        <img
+                                            onClick={() => copyText(item.username)}
+                                            className="w-4 h-4 ml-2 cursor-pointer opacity-60 hover:opacity-100"
+                                            src={copyIcon}
+                                            alt="Copy username"
+                                        />
+                                    </div>
+
+                                    {/* Password */}
+                                    <div className="text-sm text-gray-700 flex items-center break-all">
+                                        <span className="font-semibold mr-1">Password:</span>
+                                        <span>{isPasswordVisible ? item.password : '•'.repeat(item.password.length)}</span>
+                                        <img
+                                            onClick={() => togglePasswordVisibility(item.id)}
+                                            className="w-4 h-4 ml-2 cursor-pointer opacity-60 hover:opacity-100"
+                                            src={isPasswordVisible ? viewIcon : hideIcon}
+                                            alt="Toggle password"
+                                        />
+                                        <img
+                                            onClick={() => copyText(item.password)}
+                                            className="w-4 h-4 ml-2 cursor-pointer opacity-60 hover:opacity-100"
+                                            src={copyIcon}
+                                            alt="Copy password"
+                                        />
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
+
+
             </div>
         </>
     );
